@@ -58,7 +58,7 @@ base_url = ""
 
 
 def get_web_page(domain, webpage):
-    print("Retrieving Webpage: " + domain + "/" + webpage)
+    print("Retrieving Webpage: " + domain + "/" + urllib.parse.unquote(webpage))
 
     req = urllib.request.Request(base_url + ":" + server_port + "/" + webpage, headers={"Host": domain, "User-Agent": USER_AGENT}, method="GET")
     try:
@@ -250,7 +250,7 @@ def print_host():
         print(host.name)
         print(host.hash)
         for href in host.href_list.hrefs:
-            print(href.is_enumerated, href.location)
+            print(urllib.parse.unquote(href.location))
         print("isEnumerated: ", host.is_enumerated)
         print("isInScope: ", host.is_in_scope)
         print("===========================================")
