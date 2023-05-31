@@ -139,7 +139,7 @@ def is_dup_href(host, location):
 
 def is_href_offsite(host, href):
     href.location = str(href.location)
-    print(href.location)
+    #print(href.location)
     if len(href.location.strip()) == 0:
         href.is_offsite = False
         href.is_enumerated = True
@@ -208,16 +208,7 @@ def parse_for_href(host, html_doc):
             if is_dup_href(host, str(hrefs)) is False:
                 create_new_href(host, str(hrefs))
 
-def print_host():
-    for host in Hosts.hosts:
-        print("===========================================")
-        print(host.name)
-        print(host.hash)
-        for href in host.href_list.hrefs:
-            print(href.is_enumerated, href.location)
-        print("isEnumerated: ", host.is_enumerated)
-        print("isInScope: ", host.is_in_scope)
-        print("===========================================")
+
 
 def enumerate_site(host):
     resp = get_web_page(host.name, "")
@@ -253,6 +244,32 @@ def enumerate_site(host):
     host.is_enumerated = True
     Hosts.num_enumerated = Hosts.num_enumerated + 1
 
+def print_host():
+    for host in Hosts.hosts:
+        print("===========================================")
+        print(host.name)
+        print(host.hash)
+        for href in host.href_list.hrefs:
+            print(href.is_enumerated, href.location)
+        print("isEnumerated: ", host.is_enumerated)
+        print("isInScope: ", host.is_in_scope)
+        print("===========================================")
+
+
+def printNewHostsFileEntries():
+    host_file_edits = []
+
+    for this_host in Hosts.hosts:
+        if (this_host.is_in_scope is True) and (this_host.name != server_ip):
+            host_file_edits.append(this_host.name + "    " + server_ip)
+
+    if len(host_file_edits) != 0:
+        print("Add the following to your hosts file: ")
+        for this_host in host_file_edits:
+            print(this_host)
+    else:
+        print("Nothing to add to the hosts file")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
@@ -274,3 +291,6 @@ if __name__ == "__main__":
                     enumerate_site(host)
 
     print_host()
+    printNewHostsFileEntries()
+
+
