@@ -28,15 +28,6 @@ class HrefList:
         self.num_enumerated = num_enumerated  # 0
 
 
-
-class Host:
-    name = ""
-    hash = ""
-    href_list = []
-    is_in_scope = bool  # Lets us know if host in within the target ip scope.
-    is_enumerated = bool
-
-
 class Host:
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
