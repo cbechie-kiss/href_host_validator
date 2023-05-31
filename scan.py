@@ -261,7 +261,7 @@ def printNewHostsFileEntries():
 
     for this_host in Hosts.hosts:
         if (this_host.is_in_scope is True) and (this_host.name != server_ip):
-            host_file_edits.append(this_host.name + "    " + server_ip)
+            host_file_edits.append(server_ip + "    " + this_host.name)
 
     if len(host_file_edits) != 0:
         print("Add the following to your hosts file: ")
