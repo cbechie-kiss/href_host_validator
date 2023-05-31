@@ -58,7 +58,7 @@ base_url = ""
 
 
 def get_web_page(domain, webpage):
-    print("Retrieving Webpage: " + webpage + " From Host: " + domain)
+    print("Retrieving Webpage: " + domain + "/" + webpage)
 
     req = urllib.request.Request(base_url + ":" + server_port + "/" + webpage, headers={"Host": domain, "User-Agent": USER_AGENT}, method="GET")
     try:
