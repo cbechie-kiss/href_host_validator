@@ -313,13 +313,13 @@ def create_new_email(host: Host, email):
             new_email.is_offsite = False
             new_email.is_enumerated = True
 
+
 def parse_for_emails(host: Host, soup):
     extract_email_pattern = r"\S+@\S+\.\S+"
     emails = re.findall(extract_email_pattern, soup.prettify())
     if emails:
         for email in emails:
-            if host.name != email.split("@", 1)[1]:
-                create_new_email(host, email)
+            create_new_email(host, email)
 
 
 def enumerate_site(host: Host):
@@ -396,3 +396,5 @@ if __name__ == "__main__":
 
     print_host()
     print_new_hosts_file_entries()
+
+
