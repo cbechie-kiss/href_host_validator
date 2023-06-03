@@ -313,9 +313,8 @@ def test_href_for_new_site(host: Host):
         if(href.is_offsite is True) and (href.is_enumerated is False):
             if DEBUG == 1:
                 print(href.location)
-            href.location = separate_host_from_location(href.location)
             href.is_enumerated = True
-            test_host(href.location)
+            test_host(separate_host_from_location(href.location))
 
 
 def test_email_for_new_site(host: Host):
@@ -416,7 +415,7 @@ def print_host():
         print("Hash: " + host.hash)
         for href in host.href_list.hrefs:
             if href is not None:
-                if (href.location[0] == '/') or (href.location[0] == "#"):
+                if href.is_offsite is False:
                     print(urllib.parse.unquote(href.location))
         print("isEnumerated: ", host.is_enumerated)
         print("isInScope: ", host.is_in_scope)
@@ -463,4 +462,5 @@ if __name__ == "__main__":
 
     print_host()
     print_new_hosts_file_entries()
+
 
