@@ -81,7 +81,7 @@ base_url = ""
 DEBUG = 0
 
 
-def is_ipv4_private_address():
+def is_local_ipv4_private_address():
     # Regular expression pattern to match local IPv4 private addresses. ChatGPT
     pattern = r'^(?:10\.|172\.(?:1[6-9]|2[0-9]|3[0-1])\.|192\.168\.)\d{1,3}\.\d{1,3}$'
     return bool(re.match(pattern, server_ip))
