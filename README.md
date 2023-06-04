@@ -7,4 +7,5 @@ Capabilites:
 <img width="702" alt="image" src="https://github.com/cbechie-kiss/in_scope_crawler/assets/107353602/06a6d76c-303b-423a-b951-f8f48899d9d8">
 
 - Generates CSV for in-scope targets
+- <img width="702" alt="image" src="https://github.com/cbechie-kiss/in_scope_crawler/assets/107353602/a70243b5-c52c-45a6-acb0-8da874272577">
 
