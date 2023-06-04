@@ -6,11 +6,12 @@ class HostNode(GenericNode):
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
 
-    def __init__(self, name: str, _hash: str, href_list: GenericList, email_list: GenericList):
+    def __init__(self, name: str, _hash: str, href_list: GenericList, email_list: GenericList, domain):
         self.name = name
         self.hash = _hash
         self.href_list = href_list
         self.email_list = email_list
+        self.domain = domain
         GenericNode.__init__(self)
 
     def __str__(self):
