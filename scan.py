@@ -222,22 +222,17 @@ def is_dup_href(host: HostNode, location):
 
 def is_href_offsite(host: HostNode, href):
     href.location = str(href.location)
+    
     if len(href.location.strip()) == 0:
         href.is_offsite = False
         href.is_enumerated = True
-    elif href.location[0] == "/":
+    elif re.match(r"^[/#]", href.location):
         href.is_offsite = False
         href.is_enumerated = False
-    elif href.location[0] == "#":
-        href.is_offsite = False
-        href.is_enumerated = False
-    elif href.location[0:7] == "mailto:":
+    elif re.match(r"^(mailto:|tel:)", href.location):
         href.is_offsite = False
         href.is_enumerated = True
-    elif href.location[0:4] == "tel:":
-        href.is_offsite = False
-        href.is_enumerated = True
-    elif (href.location[0:7] != "http://") and (href.location[0:8] != "https://"):
+    elif not re.match(r"^(http://|https://)", href.location):
         href.is_offsite = False
         href.is_enumerated = False
     else:
