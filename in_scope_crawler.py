@@ -12,6 +12,8 @@ from href_node import HrefNode
 from host_node import HostNode
 from crawler import Crawler
 from parser import Parser
+from crawler_csv import CrawlerCSV
+import os
 
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
@@ -70,11 +72,12 @@ def create_new_host(host_name) -> HostNode:
     email_list.__init__()
     href_list.__init__()
     parser.separate_host_from_location(host_name)
-    new_host.__init__(host_name, "", href_list, email_list, parser.string_parsed)
+    new_host.__init__(host_name, "", href_list, email_list, parser.string_parsed, False)
+    new_host.occurrences = 1
     return new_host
 
 
-def in_scope_check(new_host):
+def in_scope_check(new_host: HostNode):
 
     if is_a_email_domain(new_host) is True:
         new_host.is_in_scope = True
@@ -127,6 +130,8 @@ def is_dup_href(host: HostNode, location):
         if href.location == location:
             href.occurrences = href.occurrences + 1
             return True
+
+    host.href_list.total_nodes = host.href_list.total_nodes + 1
     return False
 
 
@@ -160,7 +165,8 @@ def create_new_href(host: HostNode, new_href):
     href.__init__(new_href)
     is_href_offsite(host, href)
     host.href_list.list.append(href)
-    host.href_list.total = host.href_list.total_nodes + 1
+    href.occurrences = 1
+
 
 
 def driver_create_href(host: HostNode, location):
@@ -227,6 +233,7 @@ def is_email_dup(host: HostNode, email):
             if this_email.address == email:
                 this_email.occurrences = this_email.occurrences + 1
                 return True
+    host.email_list.total_nodes = host.email_list.total_nodes + 1
     return False
 
 def extract_emails(text):
@@ -340,3 +347,13 @@ if __name__ == "__main__":
 
     print_host()
     print_new_hosts_file_entries()
+
+    csv_writer = CrawlerCSV.__new__(CrawlerCSV)
+    csv_writer.__init__()
+
+    for host in Hosts.list:
+        if host.is_in_scope is True:
+            csv_writer.file_name = host.domain
+            csv_writer.save_dir = os.getcwd()
+            csv_writer.current_host = host
+            csv_writer.write_csv()
