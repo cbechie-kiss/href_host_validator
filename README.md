@@ -6,4 +6,5 @@ Capabilites:
 - Verify before crawling a website if the server IP address is not a local IPv4 Class A, B, or C. If it is local the script is just going to scan without asking
 <img width="702" alt="image" src="https://github.com/cbechie-kiss/in_scope_crawler/assets/107353602/06a6d76c-303b-423a-b951-f8f48899d9d8">
 
+- Generates CSV for in-scope targets
 
