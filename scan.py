@@ -439,7 +439,6 @@ if __name__ == "__main__":
     server_ip = sys.argv[1]
     server_port = sys.argv[2]
     base_url = sys.argv[3]
-    is_local_ipv4_private_address()
 
     test_host(base_url)
 
