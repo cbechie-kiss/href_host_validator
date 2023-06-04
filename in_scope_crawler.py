@@ -72,7 +72,7 @@ def create_new_host(host_name) -> HostNode:
     email_list.__init__()
     href_list.__init__()
     parser.separate_host_from_location(host_name)
-    new_host.__init__(host_name, "", href_list, email_list, parser.string_parsed, False)
+    new_host.__init__(host_name, "", href_list, email_list, parser.string_parsed, True)
     new_host.occurrences = 1
     return new_host
 
@@ -94,6 +94,7 @@ def in_scope_check(new_host: HostNode):
 
 def test_host(domain):
     if is_name_dup(domain) is True:
+        print("Dup")
         return None
 
     new_host = create_new_host(domain)
@@ -106,6 +107,7 @@ def test_host(domain):
         new_host.is_enumerated = False
         Hosts.list.append(new_host)
         Hosts.total_nodes = Hosts.total_nodes + 1
+        print("Is in scope false")
         return None
 
     resp = crawler.make_test_connection(parser.separate_host_from_location(domain), new_host.name)
@@ -334,7 +336,6 @@ if __name__ == "__main__":
     crawler.__init__(sys.argv[1], sys.argv[2], sys.argv[3], USER_AGENT)
     is_private_ipv4 = is_local_ipv4_private_address()
     test_host(crawler.base_url)
-
     is_all_enumerated = False
     while is_all_enumerated is False:
 
